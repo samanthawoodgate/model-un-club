@@ -125,7 +125,7 @@
             transition: border-color 0.3s;
         }
         .lock-screen input:focus { border-color: #4a90e2; }
-        .lock-screen button {
+        .lock-screen button, .btn {
             padding: 12px 28px;
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
@@ -136,10 +136,19 @@
             color: white;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
         }
-        .lock-screen button:hover {
+        .lock-screen button:hover, .btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(74, 144, 226, 0.4);
+        }
+        .btn-outline:hover {
+            background: rgba(74, 144, 226, 0.1);
         }
         .error { color: #ff6b6b; margin-top: 1rem; font-size: 0.85rem; }
 
@@ -190,6 +199,7 @@
             max-width: 900px;
             width: 100%;
             padding: 0 2rem;
+            margin-bottom: 3rem;
         }
         .pillar {
             background: rgba(255,255,255,0.04);
@@ -220,6 +230,202 @@
             line-height: 1.5;
         }
 
+        /* Teacher login button on main page */
+        .teacher-login-bar {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Teacher portal */
+        .teacher-login {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .teacher-login h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .teacher-login p {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 2rem;
+        }
+        .mock-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 300px;
+        }
+        .mock-form input {
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            outline: none;
+        }
+        .mock-form input:focus { border-color: #4a90e2; }
+
+        /* Teacher dashboard */
+        .dashboard {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .dash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        .dash-header h2 {
+            font-size: 1.5rem;
+        }
+        .dash-header .back-link {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .dash-header .back-link:hover { color: white; }
+
+        /* Week cards */
+        .week-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .week-header {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .week-header:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        .week-header h3 {
+            font-size: 1.1rem;
+        }
+        .week-header .week-num {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4a90e2;
+            margin-bottom: 4px;
+        }
+        .week-header .arrow {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.3);
+            transition: transform 0.3s;
+        }
+        .week-card.open .arrow { transform: rotate(180deg); }
+
+        .week-body {
+            display: none;
+            padding: 0 2rem 2rem;
+        }
+        .week-card.open .week-body { display: block; }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4a90e2;
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 700;
+        }
+        .section-label:first-child { margin-top: 0; }
+
+        /* Resource list */
+        .resource-list {
+            list-style: none;
+        }
+        .resource-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .resource-list li:last-child { border-bottom: none; }
+        .resource-list a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .resource-list a:hover { color: white; }
+        .resource-tag {
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+        .tag-pdf { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        .tag-ppt { background: rgba(243, 156, 18, 0.2); color: #f39c12; }
+        .tag-doc { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+
+        /* Videos */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.3);
+        }
+        .video-card iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            display: block;
+        }
+        .video-card .video-title {
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Further reading */
+        .reading-list a {
+            display: block;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .reading-list a:hover { background: rgba(255,255,255,0.07); color: white; }
+        .reading-list .source {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -235,6 +441,9 @@
             .hero .tagline { font-size: 1rem; }
             .lock-screen form { flex-direction: column; }
             .lock-screen input { width: 100%; }
+            .week-header { padding: 1.2rem 1.2rem; }
+            .week-body { padding: 0 1.2rem 1.5rem; }
+            .dash-header { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
@@ -292,10 +501,226 @@
                     <p>Develop teamwork, negotiation, and critical thinking skills for the future.</p>
                 </div>
             </div>
+
+            <div class="teacher-login-bar">
+                <button class="btn btn-outline" onclick="showTeacherLogin()">Teacher Login</button>
+            </div>
         </section>
 
         <div class="footer">
-            Model UN Club &mdash; Website coming soon
+            Model UN Club &mdash; Saving the World Every Week
+        </div>
+    </div>
+
+    <!-- Teacher login screen -->
+    <div id="teacher-login" class="teacher-login hidden">
+        <img src="logo.png" alt="Model UN Club" style="width: 80px; margin-bottom: 1.5rem; filter: drop-shadow(0 0 30px rgba(74, 144, 226, 0.3));">
+        <h2>Teacher Portal</h2>
+        <p>Weekly resources for club leaders</p>
+        <div class="mock-form">
+            <input type="email" placeholder="Email" value="teacher@school.ac.uk">
+            <input type="password" placeholder="Password" value="password123">
+            <button class="btn" onclick="showDashboard()">Log In</button>
+            <a href="#" onclick="backToSite()" style="color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 0.5rem;">Back to site</a>
+        </div>
+    </div>
+
+    <!-- Teacher dashboard -->
+    <div id="dashboard" class="hidden">
+        <div class="globe-bg"></div>
+        <div class="dashboard">
+            <div class="dash-header">
+                <div>
+                    <h2>Weekly Resources</h2>
+                    <p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 4px;">Download lesson packs, watch briefing videos, and explore further reading</p>
+                </div>
+                <a class="back-link" onclick="backToSite()">Logout</a>
+            </div>
+
+            <!-- Week 1: Water Scarcity -->
+            <div class="week-card open">
+                <div class="week-header" onclick="toggleWeek(this)">
+                    <div>
+                        <div class="week-num">Week 1</div>
+                        <h3>Water Scarcity &amp; the Global Water Crisis</h3>
+                    </div>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="week-body">
+                    <div class="section-label">Teacher Resources</div>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Lesson Plan &mdash; Water Scarcity Debate Setup</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-ppt">PPT</span>
+                            <a href="#">Slide Deck &mdash; The Global Water Crisis in Numbers</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-doc">DOC</span>
+                            <a href="#">Student Handout &mdash; Country Position Briefs (Water)</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Resolution Template &mdash; Access to Clean Water</a>
+                        </li>
+                    </ul>
+
+                    <div class="section-label">Videos</div>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/oLa9eMCCebY" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">Water Crisis &mdash; BBC Our World</div>
+                        </div>
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/C65iqOSCZOY" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">Why is Water Scarcity a Global Issue? &mdash; TED-Ed</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label">Further Reading</div>
+                    <div class="reading-list">
+                        <a href="https://www.un.org/waterforlifedecade/scarcity.shtml" target="_blank">
+                            UN Water for Life &mdash; International Decade for Action
+                            <span class="source">un.org</span>
+                        </a>
+                        <a href="https://www.worldwildlife.org/threats/water-scarcity" target="_blank">
+                            Water Scarcity Overview
+                            <span class="source">worldwildlife.org</span>
+                        </a>
+                        <a href="https://www.unicef.org/wash/water-scarcity" target="_blank">
+                            UNICEF &mdash; Water Scarcity and Children
+                            <span class="source">unicef.org</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2: The War in Iran -->
+            <div class="week-card">
+                <div class="week-header" onclick="toggleWeek(this)">
+                    <div>
+                        <div class="week-num">Week 2</div>
+                        <h3>The Conflict in Iran &amp; Middle East Geopolitics</h3>
+                    </div>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="week-body">
+                    <div class="section-label">Teacher Resources</div>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Lesson Plan &mdash; Iran Conflict Timeline &amp; Key Players</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-ppt">PPT</span>
+                            <a href="#">Slide Deck &mdash; Understanding the Iran Situation</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-doc">DOC</span>
+                            <a href="#">Student Handout &mdash; Security Council Role Cards (Iran)</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Resolution Template &mdash; Peace &amp; Security in the Middle East</a>
+                        </li>
+                    </ul>
+
+                    <div class="section-label">Videos</div>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/7xmr7ZhAPGE" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">Iran's Complicated History &mdash; Vox</div>
+                        </div>
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/veMFCFyOwFI" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">The Middle East's Cold War Explained &mdash; Vox</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label">Further Reading</div>
+                    <div class="reading-list">
+                        <a href="https://www.bbc.co.uk/news/topics/c302m85q5ljt" target="_blank">
+                            BBC News &mdash; Iran Coverage
+                            <span class="source">bbc.co.uk</span>
+                        </a>
+                        <a href="https://www.cfr.org/global-conflict-tracker/conflict/confrontation-between-iran-and-united-states" target="_blank">
+                            Council on Foreign Relations &mdash; US-Iran Confrontation
+                            <span class="source">cfr.org</span>
+                        </a>
+                        <a href="https://www.amnesty.org/en/location/middle-east-and-north-africa/iran/" target="_blank">
+                            Amnesty International &mdash; Iran Human Rights
+                            <span class="source">amnesty.org</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3: Oil Trade -->
+            <div class="week-card">
+                <div class="week-header" onclick="toggleWeek(this)">
+                    <div>
+                        <div class="week-num">Week 3</div>
+                        <h3>Global Oil Trade &amp; Energy Politics</h3>
+                    </div>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="week-body">
+                    <div class="section-label">Teacher Resources</div>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Lesson Plan &mdash; Oil, OPEC &amp; Global Power</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-ppt">PPT</span>
+                            <a href="#">Slide Deck &mdash; Who Controls the World's Oil?</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-doc">DOC</span>
+                            <a href="#">Student Handout &mdash; Country Briefs (Oil Producing Nations)</a>
+                        </li>
+                        <li>
+                            <span class="resource-tag tag-pdf">PDF</span>
+                            <a href="#">Resolution Template &mdash; Sustainable Energy Transition</a>
+                        </li>
+                    </ul>
+
+                    <div class="section-label">Videos</div>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/AQbmpecxS2w" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">How Oil Runs the World &mdash; CNBC</div>
+                        </div>
+                        <div class="video-card">
+                            <iframe src="https://www.youtube.com/embed/wJ2NMD3VEyc" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-title">What is OPEC? &mdash; TLDR News</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label">Further Reading</div>
+                    <div class="reading-list">
+                        <a href="https://www.iea.org/topics/oil" target="_blank">
+                            International Energy Agency &mdash; Oil Market Reports
+                            <span class="source">iea.org</span>
+                        </a>
+                        <a href="https://www.opec.org/opec_web/en/about_us/23.htm" target="_blank">
+                            OPEC &mdash; About Us &amp; Member Countries
+                            <span class="source">opec.org</span>
+                        </a>
+                        <a href="https://www.bbc.co.uk/bitesize/guides/zpmmmp3/revision/1" target="_blank">
+                            BBC Bitesize &mdash; Energy Resources &amp; Global Trade
+                            <span class="source">bbc.co.uk</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            Model UN Club &mdash; Teacher Portal
         </div>
     </div>
 
@@ -327,6 +752,26 @@
         function unlock() {
             document.getElementById("lock").classList.add("hidden");
             document.getElementById("content").classList.remove("hidden");
+        }
+
+        function showTeacherLogin() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("teacher-login").classList.remove("hidden");
+        }
+
+        function showDashboard() {
+            document.getElementById("teacher-login").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+        }
+
+        function backToSite() {
+            document.getElementById("teacher-login").classList.add("hidden");
+            document.getElementById("dashboard").classList.add("hidden");
+            document.getElementById("content").classList.remove("hidden");
+        }
+
+        function toggleWeek(el) {
+            el.closest(".week-card").classList.toggle("open");
         }
     </script>
 </body>
