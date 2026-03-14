@@ -4,72 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Model UN Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            margin: 0;
-            background: #1a1a2e;
+            background: #0a1628;
             color: white;
+            overflow-x: hidden;
         }
-        .container {
-            text-align: center;
+
+        /* Animated globe background */
+        .globe-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            overflow: hidden;
         }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+        .globe-bg::before {
+            content: '';
+            position: absolute;
+            width: 800px; height: 800px;
+            border-radius: 50%;
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 8s ease-in-out infinite;
         }
-        p {
-            font-size: 1.2rem;
-            color: #aaa;
+        .globe-bg::after {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 8s ease-in-out infinite 2s;
         }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
+        /* Floating placards */
+        .placard {
+            position: fixed;
+            background: rgba(74, 144, 226, 0.08);
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .placard:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .placard:nth-child(2) { top: 20%; right: 8%; animation-delay: -4s; }
+        .placard:nth-child(3) { bottom: 25%; left: 10%; animation-delay: -8s; }
+        .placard:nth-child(4) { bottom: 15%; right: 12%; animation-delay: -12s; }
+        .placard:nth-child(5) { top: 45%; left: 3%; animation-delay: -6s; }
+        .placard:nth-child(6) { top: 60%; right: 5%; animation-delay: -10s; }
+        .placard:nth-child(7) { top: 5%; left: 40%; animation-delay: -14s; }
+        .placard:nth-child(8) { bottom: 8%; left: 35%; animation-delay: -2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            25% { transform: translateY(-15px) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(-1deg); }
+            75% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* Lock screen */
         .lock-screen {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             text-align: center;
+            padding: 2rem;
+        }
+        .lock-screen img {
+            width: 120px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 30px rgba(74, 144, 226, 0.3));
+        }
+        .lock-screen h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.25rem;
+        }
+        .lock-screen .subtitle {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .lock-screen form {
+            display: flex;
+            gap: 8px;
         }
         .lock-screen input {
-            padding: 10px 16px;
+            padding: 12px 18px;
             font-size: 1rem;
-            border: 2px solid #444;
-            border-radius: 8px;
-            background: #16213e;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
             color: white;
             outline: none;
-            margin-top: 1rem;
+            width: 220px;
+            transition: border-color 0.3s;
         }
-        .lock-screen input:focus {
-            border-color: #4a7dff;
-        }
+        .lock-screen input:focus { border-color: #4a90e2; }
         .lock-screen button {
-            padding: 10px 24px;
+            padding: 12px 28px;
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
             border: none;
-            border-radius: 8px;
-            background: #4a7dff;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4a90e2, #357abd);
             color: white;
             cursor: pointer;
-            margin-left: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .lock-screen button:hover {
-            background: #3a6ae0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
         }
-        .error {
-            color: #ff6b6b;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
+        .error { color: #ff6b6b; margin-top: 1rem; font-size: 0.85rem; }
+
+        /* Main content */
+        .site { position: relative; z-index: 1; }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
         }
-        .hidden {
-            display: none;
+        .hero img {
+            width: 160px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 40px rgba(74, 144, 226, 0.4));
+            animation: logoGlow 4s ease-in-out infinite;
+        }
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(74, 144, 226, 0.3)); }
+            50% { filter: drop-shadow(0 0 50px rgba(74, 144, 226, 0.6)); }
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.5);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        /* Pillars */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            padding: 0 2rem;
+        }
+        .pillar {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .pillar:hover {
+            transform: translateY(-4px);
+            border-color: rgba(74, 144, 226, 0.4);
+        }
+        .pillar-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            opacity: 0.8;
+        }
+        .pillar h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .pillar p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.8rem;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero .tagline { font-size: 1rem; }
+            .lock-screen form { flex-direction: column; }
+            .lock-screen input { width: 100%; }
         }
     </style>
 </head>
 <body>
+    <div class="globe-bg"></div>
+
+    <!-- Floating country placards -->
+    <div class="placard">United Kingdom</div>
+    <div class="placard">United States</div>
+    <div class="placard">France</div>
+    <div class="placard">Japan</div>
+    <div class="placard">Brazil</div>
+    <div class="placard">Kenya</div>
+    <div class="placard">India</div>
+    <div class="placard">Australia</div>
+
+    <!-- Password screen -->
     <div id="lock" class="lock-screen">
-        <img src="logo.png" alt="Model UN Club" style="width: 150px; margin-bottom: 1rem;">
+        <img src="logo.png" alt="Model UN Club">
         <h1>Model UN Club</h1>
-        <p>Enter password to continue</p>
+        <p class="subtitle">Enter password to continue</p>
         <form onsubmit="return checkPassword()">
             <input type="password" id="pw" placeholder="Password" autofocus>
             <button type="submit">Enter</button>
@@ -77,15 +263,43 @@
         <p id="err" class="error hidden">Wrong password</p>
     </div>
 
-    <div id="content" class="container hidden">
-        <img src="logo.png" alt="Model UN Club" style="width: 200px; margin-bottom: 1rem;">
-        <h1>Hello World!</h1>
-        <p>Model UN Club website coming soon.</p>
+    <!-- Main site -->
+    <div id="content" class="site hidden">
+        <section class="hero">
+            <img src="logo.png" alt="Model UN Club">
+            <h1>Model UN Club</h1>
+            <p class="tagline">Empowering young voices to debate global issues, build confidence, and shape tomorrow's leaders.</p>
+
+            <div class="pillars">
+                <div class="pillar">
+                    <img src="5.png" alt="Debate" class="pillar-icon">
+                    <h3>Public Speaking</h3>
+                    <p>Find your voice and learn to speak with confidence in front of any audience.</p>
+                </div>
+                <div class="pillar">
+                    <img src="6.png" alt="Vote" class="pillar-icon">
+                    <h3>Global Issues</h3>
+                    <p>Research and debate real-world challenges from climate change to human rights.</p>
+                </div>
+                <div class="pillar">
+                    <img src="5.png" alt="Conference" class="pillar-icon" style="transform: scaleX(-1);">
+                    <h3>Conferences</h3>
+                    <p>Represent countries at Model UN conferences and compete with schools nationwide.</p>
+                </div>
+                <div class="pillar">
+                    <img src="6.png" alt="Learn" class="pillar-icon" style="transform: scaleX(-1);">
+                    <h3>Leadership</h3>
+                    <p>Develop teamwork, negotiation, and critical thinking skills for the future.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer">
+            Model UN Club &mdash; Website coming soon
+        </div>
     </div>
 
     <script>
-        const PASS_HASH = "a]d#9Fk2$mUc";
-
         function simpleHash(str) {
             let h = 0;
             for (let i = 0; i < str.length; i++) {
