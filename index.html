@@ -26,12 +26,92 @@
             font-size: 1.2rem;
             color: #aaa;
         }
+        .lock-screen {
+            text-align: center;
+        }
+        .lock-screen input {
+            padding: 10px 16px;
+            font-size: 1rem;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #16213e;
+            color: white;
+            outline: none;
+            margin-top: 1rem;
+        }
+        .lock-screen input:focus {
+            border-color: #4a7dff;
+        }
+        .lock-screen button {
+            padding: 10px 24px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #4a7dff;
+            color: white;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        .lock-screen button:hover {
+            background: #3a6ae0;
+        }
+        .error {
+            color: #ff6b6b;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div id="lock" class="lock-screen">
+        <h1>Model UN Club</h1>
+        <p>Enter password to continue</p>
+        <form onsubmit="return checkPassword()">
+            <input type="password" id="pw" placeholder="Password" autofocus>
+            <button type="submit">Enter</button>
+        </form>
+        <p id="err" class="error hidden">Wrong password</p>
+    </div>
+
+    <div id="content" class="container hidden">
         <h1>Hello World!</h1>
         <p>Model UN Club website coming soon.</p>
     </div>
+
+    <script>
+        const PASS_HASH = "a]d#9Fk2$mUc";
+
+        function simpleHash(str) {
+            let h = 0;
+            for (let i = 0; i < str.length; i++) {
+                h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+            }
+            return h.toString(36);
+        }
+
+        const EXPECTED = simpleHash("modelunclub");
+
+        if (sessionStorage.getItem("authed") === "1") {
+            unlock();
+        }
+
+        function checkPassword() {
+            if (simpleHash(document.getElementById("pw").value) === EXPECTED) {
+                sessionStorage.setItem("authed", "1");
+                unlock();
+            } else {
+                document.getElementById("err").classList.remove("hidden");
+            }
+            return false;
+        }
+
+        function unlock() {
+            document.getElementById("lock").classList.add("hidden");
+            document.getElementById("content").classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>
